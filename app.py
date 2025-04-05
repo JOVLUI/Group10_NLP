@@ -5,7 +5,17 @@ import nltk
 import os
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
-import traceback
+
+@st.cache_resource
+def download_nltk_resources():
+    try:
+        nltk.download('punkt')
+        nltk.download('punkt_tab')
+    except Exception as e:
+        st.error(f"Error downloading NLTK resources: {e}")
+
+# 在应用开始时调用
+download_nltk_resources()
 
 # 设置页面配置必须是第一个 Streamlit 命令
 st.set_page_config(
